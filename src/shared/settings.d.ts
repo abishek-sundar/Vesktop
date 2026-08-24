@@ -46,6 +46,8 @@ export interface Settings {
         deviceSelect?: boolean;
         granularSelect?: boolean;
 
+        defaultToEntireSystem?: boolean;
+
         ignoreVirtual?: boolean;
         ignoreDevices?: boolean;
         ignoreInputMedia?: boolean;

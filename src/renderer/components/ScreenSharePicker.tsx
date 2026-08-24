@@ -34,7 +34,7 @@ import {
 import { Node } from "@vencord/venmic";
 import type { Dispatch, SetStateAction } from "react";
 import { addPatch } from "renderer/patches/shared";
-import { State, useSettings, useVesktopState } from "renderer/settings";
+import { Settings, State, useSettings, useVesktopState } from "renderer/settings";
 import { isLinux, isWindows } from "renderer/utils";
 
 import { SimpleErrorBoundary } from "./SimpleErrorBoundary";
@@ -298,6 +298,17 @@ function AudioSettingsModal({
                     }}
                     value={Settings.audio?.deviceSelect ?? false}
                     disabled={Settings.audio?.ignoreDevices}
+                />
+                <FormSwitch
+                    title="Default to Entire System Audio"
+                    description={
+                        <>
+                            Default to <b>Entire System</b> as audio source in the Screen Share Picker.
+                        </>
+                    }
+                    hideBorder
+                    onChange={v => (Settings.audio = { ...Settings.audio, defaultToEntireSystem: v })}
+                    value={Settings.audio?.defaultToEntireSystem ?? false}
                 />
             </div>
         </Modal>
@@ -708,7 +719,7 @@ function ModalComponent({
     const [settings, setSettings] = useState<StreamSettings>({
         contentHint: "motion",
         audio: true,
-        includeSources: "None"
+        includeSources: isLinux && Settings.store.audio?.defaultToEntireSystem ? "Entire System" : "None"
     });
     const qualitySettings = (useVesktopState().screenshareQuality ??= {
         resolution: "720",
