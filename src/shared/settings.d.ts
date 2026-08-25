@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import type { Node } from "@vencord/venmic";
 import type { Rectangle } from "electron";
 
 export interface Settings {
@@ -46,7 +47,7 @@ export interface Settings {
         deviceSelect?: boolean;
         granularSelect?: boolean;
 
-        defaultToEntireSystem?: boolean;
+        lastSelectedSource?: "None" | "Entire System" | Node[];
 
         ignoreVirtual?: boolean;
         ignoreDevices?: boolean;
